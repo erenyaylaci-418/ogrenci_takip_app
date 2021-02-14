@@ -5,14 +5,13 @@ class Student {
   int Not;
   String _status = "";
 
-  // ignore: empty_constructor_bodies
   Student(int Id, String Name, String Surname, int Not) {
     this.Id = Id;
     this.Name = Name;
     this.Surname = Surname;
     this.Not = Not;
   }
-  // ignore: empty_constructor_bodies
+
   Student.without() {}
 
   String getStatus() {

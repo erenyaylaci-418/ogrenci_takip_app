@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ogrenci_takip_app/models/Student.dart';
 import 'package:ogrenci_takip_app/screens/Student_add.dart';
+import 'package:ogrenci_takip_app/screens/student_edit.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -91,7 +92,13 @@ class _MyAppState extends State<MyApp> {
                         Text("Güncelle"),
                       ],
                     ),
-                    onPressed: () {})),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  StudentEdit(seciliogrenci)));
+                    })),
             Flexible(
                 fit: FlexFit.tight,
                 flex: 1,

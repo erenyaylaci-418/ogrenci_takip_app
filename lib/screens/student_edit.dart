@@ -3,29 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:ogrenci_takip_app/models/Student.dart';
 import 'package:ogrenci_takip_app/validation/student_validator.dart';
 
-class StudentAdd extends StatefulWidget {
-  List<Student> students;
-  StudentAdd(List<Student> students) {
-    this.students = students;
+class StudentEdit extends StatefulWidget {
+  Student selectedstudent;
+  StudentEdit(Student selectedstudent) {
+    this.selectedstudent = selectedstudent;
   }
   @override
   State<StatefulWidget> createState() {
-    return _StudentAddState(students);
+    return _StudentEditState(selectedstudent);
   }
 }
 
-class _StudentAddState extends State with StudentValidationMixing {
-  List<Student> students;
-  var student = Student.without();
+class _StudentEditState extends State with StudentValidationMixing {
+  Student selectedstudent;
   var formKey = GlobalKey<FormState>();
-  _StudentAddState(List<Student> students) {
-    this.students = students;
+  _StudentEditState(Student selectedstudent) {
+    this.selectedstudent = selectedstudent;
   }
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("Yeni öğrenci Ekle"),
+        title: Text("Öğrenci güncelle"),
       ),
       body: Container(
         margin: EdgeInsets.all(
@@ -48,31 +48,33 @@ class _StudentAddState extends State with StudentValidationMixing {
 
   Widget buildNameField() {
     return TextFormField(
-      decoration: InputDecoration(labelText: "Öğrenci Adı", hintText: "Eren"),
+      decoration: InputDecoration(
+          labelText: "Öğrenci Adı", hintText: selectedstudent.Name),
       validator: validateFirstName,
       onSaved: (String value) {
-        student.Name = value;
+        selectedstudent.Name = value;
       },
     );
   }
 
   Widget buildSurNameField() {
     return TextFormField(
-      decoration:
-          InputDecoration(labelText: "Öğrenci Soyismi", hintText: "Yaylacı"),
+      decoration: InputDecoration(
+          labelText: "Öğrenci Soyismi", hintText: selectedstudent.Surname),
       validator: validateSurName,
       onSaved: (String value) {
-        student.Surname = value;
+        selectedstudent.Surname = value;
       },
     );
   }
 
   Widget buildGradeField() {
     return TextFormField(
-      decoration: InputDecoration(labelText: "Aldığı Not", hintText: "100"),
+      decoration: InputDecoration(
+          labelText: "Aldığı Not", hintText: selectedstudent.Not.toString()),
       validator: validateGrade,
       onSaved: (String value) {
-        student.Not = int.parse(value);
+        selectedstudent.Not = int.parse(value);
       },
     );
   }
@@ -84,7 +86,6 @@ class _StudentAddState extends State with StudentValidationMixing {
         onPressed: () {
           if (formKey.currentState.validate()) {
             formKey.currentState.save();
-            students.add(student);
             Navigator.pop(context);
           }
         });
